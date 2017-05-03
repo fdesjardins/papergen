@@ -14,20 +14,17 @@ Promise.promisifyAll(lwip)
 //   return
 // }
 
-const config = {
-  ruling: paperRulings('narrow', { format: 'decimal', units: 'mm' }),
-  printSize: paperSize.getSize('letter'),
-  dpiMultiplier: 25
-}
-
 const drawLines = (canvas, ctx) => {
-  ctx.lineWidth = 1
+  ctx.lineWidth = 2
   ctx.strokeStyle = '#555'
 
-  const spacing = parseFloat(config.ruling.spacing.split(' ')[0]) * config.dpiMultiplier
+  ctx.setLineDash([10, 10]);
+
+  // px to mm
+  const pxSpacing = (canvas.height * 25.4) / 1000
 
   ctx.beginPath()
-  for (let y = 0; y <= canvas.height; y += spacing) {
+  for (let y = 0; y <= canvas.height; y += pxSpacing) {
     ctx.moveTo(0, y)
     ctx.lineTo(canvas.width, y)
     ctx.stroke()
@@ -39,15 +36,18 @@ const drawLeftMargin = (canvas, ctx, double = true) => {
   ctx.lineWidth = 2
   ctx.strokeStyle = '#000'
 
-  // mm from left edge
-  const left = 20 * config.dpiMultiplier
+  // prints to 21cm across; we want 2.5 cm from left
+  const left1 = 1.75 * 6000 / 21
+  const left2 = 1.625 * 6000 / 21
+
+  ctx.setLineDash([10, 10]);
+
   ctx.beginPath()
-  ctx.moveTo(left, 0)
-  ctx.lineTo(left, canvas.height)
+  ctx.moveTo(left1, 0)
+  ctx.lineTo(left1, canvas.height)
   ctx.stroke()
 
   if (double) {
-    const left2 = left - (1.5 * config.dpiMultiplier)
     ctx.moveTo(left2, 0)
     ctx.lineTo(left2, canvas.height)
     ctx.stroke()
@@ -59,30 +59,36 @@ const drawCenterMargin = (canvas, ctx) => {
   ctx.lineWidth = 2
   ctx.strokeStyle = '#000'
 
-  const left = canvas.width / 2
+  const left1 = 2.75 * 6000 / 21
 
   ctx.beginPath()
-  ctx.moveTo(left, 0)
-  ctx.lineTo(left, canvas.height)
+  ctx.moveTo(left1 + (canvas.width - left1) / 3, 0)
+  ctx.lineTo(left1 + (canvas.width - left1) / 3, canvas.height)
   ctx.stroke()
   ctx.closePath()
+  // ctx.strokeStyle = '#555'
+  // ctx.moveTo(left1 + (canvas.width - left1) / 3 * 2, 0)
+  // ctx.lineTo(left1 + (canvas.width - left1) / 3 * 2, canvas.height)
+  // ctx.stroke()
 
   return ctx
 }
 
 const drawRightGrid = (canvas, ctx) => {
   ctx.lineWidth = 3
-  ctx.strokeStyle = '#777'
+  ctx.strokeStyle = '#000'
 
-  const left = canvas.width / 2
+  const left1 = 1.75 * 6000 / 21
 
-  // ctx.setLineDash([20, pxSpacing - 20]);
+  const margin = left1 + (canvas.width - left1) / 2 - 5
 
-  const spacing = parseFloat(config.ruling.spacing.split(' ')[0]) * config.dpiMultiplier
+  const pxSpacing = (canvas.height * 25.4) / 1000
+
+  ctx.setLineDash([20, pxSpacing - 20]);
 
   ctx.beginPath()
-  for (let x = left; x <= canvas.width; x += spacing) {
-    ctx.moveTo(x, 0)
+  for (let x = margin; x <= canvas.width - pxSpacing; x += pxSpacing) {
+    ctx.moveTo(x, -10)
     ctx.lineTo(x, canvas.height)
     ctx.stroke()
   }
@@ -135,28 +141,13 @@ const genNotesPaper = () => {
   return canvas.toBuffer()
 }
 
+const genGraphPaper = () => {
+  const canvas = new Canvas(6000, 9000)
+  drawGrid(canvas)
+  return canvas.toBuffer()
+}
+
 if (!module.parent) {
-  // const buffer = genNotesPaper()
-  // fs.writeFileSync(path.join(__dirname, `out.png`), buffer)
-  console.log(config.printSize, config.ruling)
-  const canvas = new Canvas(...(config.printSize.map(x => config.dpiMultiplier * x)))
-  const ctx = canvas.getContext('2d')
-
-  ctx.save()
-  drawLines(canvas, ctx)
-  ctx.restore()
-
-  ctx.save()
-  drawLeftMargin(canvas, ctx)
-  ctx.restore()
-
-  // ctx.save()
-  // drawCenterMargin(canvas, ctx)
-  // ctx.restore()
-
-  ctx.save()
-  drawRightGrid(canvas, ctx)
-  ctx.restore()
-
-  fs.writeFileSync('out.png', canvas.toBuffer())
+  const buffer = genNotesPaper()
+  fs.writeFileSync(path.join(__dirname, `out.png`), buffer)
 }

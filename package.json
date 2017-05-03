@@ -18,7 +18,7 @@
     "lodash": "^4.17.4",
     "lwip": "0.0.9",
     "paper": "^0.11.3",
-    "paper-rulings": "^1.0.0",
+    "paper-rulings": "^1.2.1",
     "paper-size": "^1.1.0"
   }
 }
