@@ -15,9 +15,9 @@ Promise.promisifyAll(lwip)
 // }
 
 const config = {
-  ruling: paperRulings('narrow', { format: 'decimal', units: 'mm' }),
+  ruling: paperRulings('gregg', { format: 'decimal', units: 'mm' }),
   printSize: paperSize.getSize('letter'),
-  dpiMultiplier: 25
+  dpiMultiplier: 30
 }
 
 const drawLines = (canvas, ctx) => {
