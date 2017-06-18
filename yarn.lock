@@ -807,9 +807,9 @@ os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
 
-paper-rulings@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/paper-rulings/-/paper-rulings-1.2.2.tgz#366cf85ab06590a29ed6ef571d94a8043e1bbe70"
+paper-rulings@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/paper-rulings/-/paper-rulings-1.2.3.tgz#8120cdf6259d743d2f2d7852e1660ef483494e5f"
   dependencies:
     convert-units "^2.2.0"
     fraction.js "^4.0.0"
@@ -818,9 +818,9 @@ paper-size@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/paper-size/-/paper-size-1.1.0.tgz#5b1f5214de69e1f1ec2add60f787f20666583194"
 
-paper@^0.11.3:
-  version "0.11.3"
-  resolved "https://registry.yarnpkg.com/paper/-/paper-0.11.3.tgz#f9206ccbe1026d2de50bcc63e06e59af98808ebf"
+paper@^0.11.4:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/paper/-/paper-0.11.4.tgz#4ed9588f57f45afa85020f398b29a98c5f856f5d"
 
 parse-css-font@^2.0.2:
   version "2.0.2"
