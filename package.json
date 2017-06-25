@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^4.0.0",
+    "eslint": "^4.1.0",
     "eslint-plugin-standard": "^3.0.1"
   },
   "dependencies": {
@@ -17,8 +17,10 @@
     "canvas": "^1.6.5",
     "lodash": "^4.17.4",
     "lwip": "0.0.9",
+    "node-printer": "^1.0.2",
     "paper": "^0.11.4",
-    "paper-rulings": "^1.2.3",
-    "paper-size": "^1.1.0"
+    "paper-rulings": "^1.2.6",
+    "paper-size": "^1.1.0",
+    "printer": "^0.2.2"
   }
 }
