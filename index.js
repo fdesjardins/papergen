@@ -9,25 +9,25 @@ const paperRulings = require('paper-rulings')
 
 Promise.promisifyAll(lwip)
 
-//
-// const drawLines = (ctx, {spacing, thickness, color}) => {
-//   return
-// }
-
-const config = {
-  ruling: paperRulings('gregg', { format: 'decimal', units: 'mm' }),
+const defaultConfig = {
+  ruling: paperRulings('college', { format: 'decimal', units: 'mm' }),
   printSize: paperSize.getSize('letter'),
-  dpiMultiplier: 30
+  dpiMultiplier: 30,
+  lineColor: '#777',
+  dotSize: 6,
+  outputFolder: path.join(__dirname, 'output')
 }
 
-const drawLines = (canvas, ctx) => {
+const drawLines = (canvas, ctx, config) => {
   ctx.lineWidth = 1
-  ctx.strokeStyle = '#555'
+  ctx.strokeStyle = config.lineColor
+
+  ctx.setLineDash([7, 7])
 
   const spacing = parseFloat(config.ruling.spacing.split(' ')[0]) * config.dpiMultiplier
 
   ctx.beginPath()
-  for (let y = 0; y <= canvas.height; y += spacing) {
+  for (let y = 1; y <= canvas.height; y += spacing) {
     ctx.moveTo(0, y)
     ctx.lineTo(canvas.width, y)
     ctx.stroke()
@@ -35,9 +35,11 @@ const drawLines = (canvas, ctx) => {
   ctx.closePath()
 }
 
-const drawLeftMargin = (canvas, ctx, double = true) => {
+const drawLeftMargin = (canvas, ctx, config, double = true) => {
   ctx.lineWidth = 2
-  ctx.strokeStyle = '#000'
+  ctx.strokeStyle = config.lineColor
+
+  ctx.setLineDash([7, 7])
 
   // mm from left edge
   const left = 20 * config.dpiMultiplier
@@ -55,9 +57,9 @@ const drawLeftMargin = (canvas, ctx, double = true) => {
   ctx.closePath()
 }
 
-const drawCenterMargin = (canvas, ctx) => {
+const drawCenterMargin = (canvas, ctx, config) => {
   ctx.lineWidth = 2
-  ctx.strokeStyle = '#000'
+  ctx.strokeStyle = config.lineColor
 
   const left = canvas.width / 2
 
@@ -70,93 +72,83 @@ const drawCenterMargin = (canvas, ctx) => {
   return ctx
 }
 
-const drawRightGrid = (canvas, ctx) => {
-  ctx.lineWidth = 3
-  ctx.strokeStyle = '#777'
-
+const drawRightGrid = (canvas, ctx, config) => {
   const left = canvas.width / 2
-
-  // ctx.setLineDash([20, pxSpacing - 20]);
 
   const spacing = parseFloat(config.ruling.spacing.split(' ')[0]) * config.dpiMultiplier
 
+  ctx.lineWidth = config.dotSize
+  ctx.strokeStyle = config.lineColor
+
+  // draw on the lines
+  ctx.setLineDash([config.dotSize, spacing - config.dotSize])
   ctx.beginPath()
   for (let x = left; x <= canvas.width; x += spacing) {
-    ctx.moveTo(x, 0)
+    ctx.moveTo(x, -2)
     ctx.lineTo(x, canvas.height)
     ctx.stroke()
   }
   ctx.closePath()
-}
 
-const drawGrid = (canvas, ctx) => {
-  ctx.lineWidth = 2
-  ctx.strokeStyle = '#000'
+  // draw between the lines
 
-  // draw vertical lines
   ctx.beginPath()
-  for (let x = 0; x <= canvas.width; x += 100) {
-    ctx.moveTo(x, 0)
+  for (let x = left; x <= canvas.width; x += spacing) {
+    ctx.moveTo(x, 0 - (config.dotSize / 2))
     ctx.lineTo(x, canvas.height)
     ctx.stroke()
   }
-
-  // draw horizontal lines
-  for (let y = 0; y <= canvas.height; y += 100) {
-    ctx.moveTo(0, y)
-    ctx.lineTo(canvas.width, y)
-    ctx.stroke()
-  }
   ctx.closePath()
-
-  return ctx
 }
 
-const genNotesPaper = () => {
-  const canvas = new Canvas(6000, 9000)
+// const drawGrid = (canvas, ctx) => {
+//   ctx.lineWidth = 2
+//   ctx.strokeStyle = config.lineColor
+//
+//   // draw vertical lines
+//   ctx.beginPath()
+//   for (let x = 0; x <= canvas.width; x += 100) {
+//     ctx.moveTo(x, 0)
+//     ctx.lineTo(x, canvas.height)
+//     ctx.stroke()
+//   }
+//
+//   // draw horizontal lines
+//   for (let y = 0; y <= canvas.height; y += 100) {
+//     ctx.moveTo(0, y)
+//     ctx.lineTo(canvas.width, y)
+//     ctx.stroke()
+//   }
+//   ctx.closePath()
+//
+//   return ctx
+// }
+
+const generatePage = (config = defaultConfig) => {
+  const canvasSize = config.printSize.map(x => config.dpiMultiplier * x)
+  const canvas = new Canvas(...canvasSize)
   const ctx = canvas.getContext('2d')
 
-  ctx.fillStyle = '#fff'
-  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.save()
+  drawLines(canvas, ctx, config)
+  ctx.restore()
 
   ctx.save()
-  drawLines(canvas, ctx)
+  drawLeftMargin(canvas, ctx, config)
   ctx.restore()
-  ctx.save()
-  drawRightGrid(canvas, ctx)
-  ctx.restore()
-  ctx.save()
-  drawLeftMargin(canvas, ctx)
-  ctx.restore()
-  // ctx.save()
-  // drawCenterMargin(canvas)
-  // ctx.restore()
 
-  return canvas.toBuffer()
+  ctx.save()
+  drawRightGrid(canvas, ctx, config)
+  ctx.restore()
+
+  if (!fs.existsSync(config.outputFolder)){
+    fs.mkdirSync(config.outputFolder);
+  }
+  const outputFile = path.join(config.outputFolder, 'out.png')
+  fs.writeFileSync(outputFile, canvas.toBuffer())
 }
+module.exports = generatePage()
 
 if (!module.parent) {
-  // const buffer = genNotesPaper()
-  // fs.writeFileSync(path.join(__dirname, `out.png`), buffer)
-  console.log(config.printSize, config.ruling)
-  const canvas = new Canvas(...(config.printSize.map(x => config.dpiMultiplier * x)))
-  const ctx = canvas.getContext('2d')
-
-  ctx.save()
-  drawLines(canvas, ctx)
-  ctx.restore()
-
-  ctx.save()
-  drawLeftMargin(canvas, ctx)
-  ctx.restore()
-
-  // ctx.save()
-  // drawCenterMargin(canvas, ctx)
-  // ctx.restore()
-
-  ctx.save()
-  drawRightGrid(canvas, ctx)
-  ctx.restore()
-
-  fs.writeFileSync('out.png', canvas.toBuffer())
+  generatePage(defaultConfig)
 }
