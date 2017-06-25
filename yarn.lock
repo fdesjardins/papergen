@@ -245,9 +245,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.0.0.tgz#7277c01437fdf41dccd168d5aa0e49b75ca1f260"
+eslint@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.1.0.tgz#bbb55a28220ee08b69da9554d45a6b2ebfd7d913"
   dependencies:
     babel-code-frame "^6.22.0"
     chalk "^1.1.3"
@@ -271,6 +271,7 @@ eslint@^4.0.0:
     json-stable-stringify "^1.0.1"
     levn "^0.3.0"
     lodash "^4.17.4"
+    minimatch "^3.0.2"
     mkdirp "^0.5.1"
     natural-compare "^1.4.0"
     optionator "^0.8.2"
@@ -352,9 +353,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-fraction.js@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.0.tgz#73974e2f8b51ef709536d624cc90782e2bb61274"
+fraction.js@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.1.tgz#c6b5218b230b082188e6c53e76b0965c052da24c"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -678,7 +679,7 @@ mimic-fn@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
 
-minimatch@^3.0.4:
+minimatch@^3.0.2, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
@@ -709,6 +710,12 @@ nan@^2.3.2, nan@^2.4.0:
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
+
+node-printer@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/node-printer/-/node-printer-1.0.2.tgz#1b26bcebf81e586f31ef146eccfca9851b22c583"
+  dependencies:
+    underscore ">=1.3.3"
 
 object-assign@^4.0.1:
   version "4.1.1"
@@ -741,12 +748,12 @@ os-tmpdir@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
-paper-rulings@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/paper-rulings/-/paper-rulings-1.2.3.tgz#8120cdf6259d743d2f2d7852e1660ef483494e5f"
+paper-rulings@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/paper-rulings/-/paper-rulings-1.2.6.tgz#b91b2a809f73584a987217f8108b416dd2158c95"
   dependencies:
     convert-units "^2.2.0"
-    fraction.js "^4.0.0"
+    fraction.js "^4.0.1"
 
 paper-size@^1.1.0:
   version "1.1.0"
@@ -799,6 +806,10 @@ pluralize@^4.0.0:
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
+
+printer@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/printer/-/printer-0.2.2.tgz#830b8f5c97b97fd9b464d4f4e105d43337792296"
 
 process-nextick-args@~1.0.6:
   version "1.0.7"
@@ -945,6 +956,10 @@ type-check@~0.3.2:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+underscore@>=1.3.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 units-css@^0.4.0:
   version "0.4.0"
