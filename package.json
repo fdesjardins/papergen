@@ -1,26 +1,56 @@
 {
-  "name": "pagegen",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "paper-gen",
+  "repository": "fdesjardins/paper-gen",
+  "author": {
+    "name": "Forrest Desjardins",
+    "email": "desjardinsfg@gmail.com",
+    "url": "github.com/fdesjardins"
+  },
+  "engines": {
+    "node": ">=7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint *.js && nyc ./node_modules/.bin/mocha --opts mocha.opts test.js"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^4.1.0",
-    "eslint-plugin-standard": "^3.0.1"
-  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "paper",
+    "pages",
+    "notebook",
+    "stationery",
+    "printing",
+    "loose leaf",
+    "generator",
+    "maker",
+    "creator",
+    "printer",
+    "designer"
+  ],
   "dependencies": {
     "bluebird": "^3.5.0",
     "canvas": "^1.6.5",
-    "lodash": "^4.17.4",
     "lwip": "0.0.9",
-    "node-printer": "^1.0.2",
-    "paper": "^0.11.4",
     "paper-rulings": "^1.2.6",
-    "paper-size": "^1.1.0",
-    "printer": "^0.2.2"
+    "paper-size": "^1.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "coveralls": "^2.13.1",
+    "eslint": "^4.1.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.2"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
   }
 }
