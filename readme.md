@@ -10,11 +10,9 @@ Design, generate, and print your own notebook paper
 npm install --save paper-gen
 ```
 
-The `lwip` dependency only works with certain versions of node, at the moment... see https://github.com/EyalAr/lwip/issues/297#issuecomment-300206001.
+The `lwip` dependency only works with certain versions of node, at the moment... 
 
-## Usage
-
-## Resources
+See https://github.com/EyalAr/lwip/issues/297#issuecomment-300206001.
 
 ## License
 
