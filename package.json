@@ -1,6 +1,7 @@
 {
   "name": "paper-gen",
   "repository": "fdesjardins/paper-gen",
+  "version": "0.0.0",
   "author": {
     "name": "Forrest Desjardins",
     "email": "desjardinsfg@gmail.com",
