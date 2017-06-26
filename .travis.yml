@@ -1,7 +1,10 @@
-sudo: false
+sudo: true
 language: node_js
 node_js:
   - 'v7.5.0'
 script: 'npm test'
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y -qq libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
 after_script:
   - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls'
