@@ -18,7 +18,16 @@ const defaultConfig = {
   outputFolder: path.join(__dirname, 'output')
 }
 
-const generatePage = (config = defaultConfig) => {
+const generatePage = config => {
+  config = Object.assign({}, defaultConfig, config)
+
+  if (typeof config.ruling === 'string') {
+    config.ruling = paperRulings(config.ruling)
+  }
+  if (typeof config.printSize === 'string') {
+    config.printSize = paperSize.getSize(config.printSize)
+  }
+
   const canvasSize = config.printSize.map(x => config.dpiMultiplier * x)
   const canvas = new Canvas(...canvasSize)
   const ctx = canvas.getContext('2d')
@@ -29,10 +38,6 @@ const generatePage = (config = defaultConfig) => {
 
   ctx.save()
   papergen.drawLeftMargin(canvas, ctx, config)
-  ctx.restore()
-
-  ctx.save()
-  papergen.drawRightGrid(canvas, ctx, config)
   ctx.restore()
 
   if (!fs.existsSync(config.outputFolder)) {
