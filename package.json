@@ -14,7 +14,8 @@
     "test": "eslint *.js && nyc ./node_modules/.bin/mocha --opts mocha.opts test.js"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "keywords": [
     "paper",
