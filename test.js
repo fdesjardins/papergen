@@ -1,11 +1,11 @@
 /* global describe, it */
 
 const assert = require('chai').assert
-const paperGen = require('./index')
+const papergen = require('./index')
 
-describe('paper-gen', () => {
+describe('papergen', () => {
   it('should exist', done => {
-    assert(paperGen !== undefined)
+    assert(papergen !== undefined)
     done()
   })
 })

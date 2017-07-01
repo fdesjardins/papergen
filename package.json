@@ -1,6 +1,6 @@
 {
-  "name": "paper-gen",
-  "repository": "fdesjardins/paper-gen",
+  "name": "papergen",
+  "repository": "fdesjardins/papergen",
   "version": "0.0.1",
   "author": {
     "name": "Forrest Desjardins",
@@ -33,20 +33,20 @@
     "bluebird": "^3.5.0",
     "canvas": "^1.6.5",
     "lwip": "0.0.9",
-    "paper-rulings": "^1.2.6",
+    "paper-rulings": "^1.3.0",
     "paper-size": "^1.1.0"
   },
   "devDependencies": {
     "chai": "^4.0.2",
     "coveralls": "^2.13.1",
-    "eslint": "^4.1.0",
+    "eslint": "^4.1.1",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-node": "^5.1.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^3.4.2",
-    "nyc": "^11.0.2"
+    "nyc": "^11.0.3"
   },
   "nyc": {
     "reporter": [

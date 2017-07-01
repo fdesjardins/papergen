@@ -5,7 +5,7 @@ const Promise = require('bluebird')
 const lwip = require('lwip')
 const paperSize = require('paper-size')
 const paperRulings = require('paper-rulings')
-const paperGen = require('./lib/paper-gen')
+const papergen = require('./lib/papergen')
 
 Promise.promisifyAll(lwip)
 
@@ -24,15 +24,15 @@ const generatePage = (config = defaultConfig) => {
   const ctx = canvas.getContext('2d')
 
   ctx.save()
-  paperGen.drawLines(canvas, ctx, config)
+  papergen.drawLines(canvas, ctx, config)
   ctx.restore()
 
   ctx.save()
-  paperGen.drawLeftMargin(canvas, ctx, config)
+  papergen.drawLeftMargin(canvas, ctx, config)
   ctx.restore()
 
   ctx.save()
-  paperGen.drawRightGrid(canvas, ctx, config)
+  papergen.drawRightGrid(canvas, ctx, config)
   ctx.restore()
 
   if (!fs.existsSync(config.outputFolder)) {
