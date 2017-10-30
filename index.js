@@ -11,8 +11,8 @@ Promise.promisifyAll(lwip)
 
 const defaultConfig = {
   ruling: paperRulings('college', { format: 'decimal', units: 'mm' }),
-  printSize: paperSize.getSize('letter'),
-  dpiMultiplier: 30,
+  printSize: [ 140 * 2, 216 ], // paperSize.getSize('letter'),
+  dpiMultiplier: 20,
   lineColor: '#777',
   dotSize: 6,
   outputFolder: path.join(__dirname, 'output')
@@ -32,12 +32,12 @@ const generatePage = config => {
   const canvas = new Canvas(...canvasSize)
   const ctx = canvas.getContext('2d')
 
-  ctx.save()
-  papergen.drawLines(canvas, ctx, config)
-  ctx.restore()
+  // ctx.save()
+  // papergen.drawLines(canvas, ctx, config)
+  // ctx.restore()
 
   ctx.save()
-  papergen.drawLeftMargin(canvas, ctx, config)
+  papergen.drawGrid(canvas, ctx, config)
   ctx.restore()
 
   if (!fs.existsSync(config.outputFolder)) {
